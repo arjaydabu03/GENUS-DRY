@@ -47,7 +47,8 @@ class UserRequest extends FormRequest
             "scope_order" => ["required_if:role_id,3", "array"],
             "role_id" => "required|exists:role,id,deleted_at,NULL",
             "mobile_no" => [
-                "required",
+                "required_if:role_id,7",
+                "exclude_unless:role_id,7",
                 "regex:[63]",
                 "digits:12",
                 $this->route()->id

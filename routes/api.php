@@ -100,7 +100,7 @@ Route::group(["middleware" => ["auth:sanctum"]], function () {
 });
 
 Route::post("login", [UserController::class, "login"]);
-Route::post("sms_order", [OrderController::class, "sms_order"]);
+Route::post("sms_order_dry", [OrderController::class, "sms_order_dry"]);
 Route::post("sms_cancel", [OrderController::class, "sms_cancel"]);
 // Route::get("reports", [ReportController::class, "view"]);
 // Route::get("users", [UserController::class, "index"]);

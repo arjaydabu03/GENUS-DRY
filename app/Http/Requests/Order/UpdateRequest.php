@@ -39,7 +39,9 @@ class UpdateRequest extends FormRequest
                 "required",
                 Rule::unique("transactions", "order_no")
                     ->ignore($this->route("order"))
-                    ->when($requestor_role == 3, function ($query) use ($requestor_id) {
+                    ->when($requestor_role == 3 || $requestor_role == 5, function ($query) use (
+                        $requestor_id
+                    ) {
                         return $query->where("requestor_id", $requestor_id);
                     })
                     // ->when($requestor_role == 2, function ($query) use ($requestor_id) {
@@ -131,16 +133,25 @@ class UpdateRequest extends FormRequest
             $date_today = Carbon::now()
                 ->timeZone("Asia/Manila")
                 ->format("Y-m-d");
+            $date_tomorrow = Carbon::now()
+                ->addDay()
+                ->timeZone("Asia/Manila")
+                ->format("Y-m-d");
             $cutoff = date("H:i", strtotime(Cutoff::get()->value("time")));
 
             $is_rush =
                 date("Y-m-d", strtotime($this->input("date_needed"))) == $date_today &&
                 $time_now > $cutoff;
+            $is_tommorow =
+                date("Y-m-d", strtotime($this->input("date_needed"))) == $date_tomorrow &&
+                $time_now > $cutoff;
 
             $with_rush_remarks = !empty($this->input("rush"));
 
             if ($is_rush && !$with_rush_remarks) {
-                $validator->errors()->add("rush", "The rush field is required.");
+                $validator->errors()->add("rush", "The rush field is required cut off reached.");
+            } elseif ($is_tommorow && !$with_rush_remarks) {
+                $validator->errors()->add("rush", "The rush field is required cut off reached.");
             }
         });
     }

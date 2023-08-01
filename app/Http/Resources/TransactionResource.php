@@ -19,8 +19,8 @@ class TransactionResource extends JsonResource
             "id" => $this->id,
             "order_no" => $this->order_no,
             "rush" => $this->rush,
-            "hri_customer" => $this->hri_customer,
             "reason" => $this->reason,
+            "remarks" => $this->remarks,
 
             "dates" => [
                 "date_ordered" => $this->date_ordered,

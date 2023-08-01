@@ -375,10 +375,10 @@ class UserController extends Controller
         return GlobalFunction::response_function(Status::SINGLE_VALIDATION);
     }
 
-    public function validate_mobile(MobileRequest $request)
-    {
-        return GlobalFunction::response_function(Status::SINGLE_VALIDATION);
-    }
+    // public function validate_mobile(MobileRequest $request)
+    // {
+    //     return GlobalFunction::response_function(Status::SINGLE_VALIDATION);
+    // }
 
     public function validate_name(NameRequest $request)
     {

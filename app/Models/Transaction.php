@@ -15,15 +15,13 @@ class Transaction extends Model
 
     protected $fillable = [
         "order_no",
-        "cip_no",
-        "helpdesk_no",
         "date_needed",
         "date_approved",
         "date_ordered",
         "date_served",
         "reason",
         "order_type",
-        "hri_customer",
+        "remarks",
 
         "company_id",
         "company_code",
