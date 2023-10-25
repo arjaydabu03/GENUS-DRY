@@ -39,11 +39,12 @@ class UpdateRequest extends FormRequest
                 "required",
                 Rule::unique("transactions", "order_no")
                     ->ignore($this->route("order"))
-                    ->when($requestor_role == 3 || $requestor_role == 5, function ($query) use (
-                        $requestor_id
-                    ) {
-                        return $query->where("requestor_id", $requestor_id);
-                    })
+                    ->when(
+                        $requestor_role == 3 || $requestor_role == 5 || $requestor_role == 8,
+                        function ($query) use ($requestor_id) {
+                            return $query->where("requestor_id", $requestor_id);
+                        }
+                    )
                     // ->when($requestor_role == 2, function ($query) use ($requestor_id) {
                     //     return $query->where("requestor_id", $requestor_id);
                     // })
